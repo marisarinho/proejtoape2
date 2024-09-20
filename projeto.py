@@ -11,22 +11,22 @@ while True:
     if n == 1:
         #PEGANDO A LISTA DE CODIGOS DOS MUNICIPIOS DO ARQUIVO FONTE
         arquivo01 = open("Codigo_UE.txt","r")
-        SE_UE = arquivo01.readlines()
+        SE_UE = arquivo01.read().splitlines()
         arquivo01.close()
 
         #PEGANDO A LISTA DE CODIGOS DOS CARGOS DO ARQUIVO FONTE
         arquivo02 = open("Codigo_Cargos.txt","r")
-        CD_CARGOS = arquivo02.readlines()
-        arquivo02.close
+        CD_CARGOS = arquivo02.read().splitlines()
+        arquivo02.close()
 
-        #MONTANDO LISTAS REMOVENDO OS "\n"
+        #MONTANDO LISTAS
         Lista_cod_municipio = montar_lista(SE_UE)
         Lista_cod_cargos = montar_lista(CD_CARGOS)
 
         #Lendo codigo do MUNICIPIO:
         while True:
             x = input("Digite o codigo do Municipio: ")
-            if x not in remover_repet(Lista_cod_municipio):
+            if x not in set(Lista_cod_municipio):
                 print("Codigo do MUNICIPIO informado invalido, favor informar outro.")
             else:
                 break
@@ -34,7 +34,7 @@ while True:
         #Lendo codigo do CARGO:
         while True:
             y = input("Digite o codigo do Cargo: ")
-            if y not in remover_repet(Lista_cod_cargos):
+            if y not in set(Lista_cod_cargos):
                 print("Codigo do CARGO informado invalido, favor informar outro.")
             else:
                 break

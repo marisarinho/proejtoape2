@@ -1,16 +1,15 @@
 from datetime import datetime
 
 def lista01 (cod_municipio, cod_cargo):
-        #buscando o arquivo na pasta e transformando ele em uma lista:
-    arquivo = open("consulta_cand_2024_PB.csv","r")
-
-    cargos = arquivo.readlines()
-
+    #buscando o arquivo na pasta e transformando ele em uma lista:
+    arquivo = open("consulta_cand_2024_PB.csv", "r", encoding="latin1")
+    cargos = arquivo.read().splitlines()
     arquivo.close()
+
 
     #transformando cada linha da lista (cargos) em outra lista:
     for i in cargos[1:]:
-        x = i.replace("\n", "").replace('"', '').split(";")
+        x = i.split(";")
         if x[11] == (f'{cod_municipio}') and x[13] == (f'{cod_cargo}'):
             print()
             print(f"Nome: {x[17]}")
@@ -19,19 +18,11 @@ def lista01 (cod_municipio, cod_cargo):
             print(f"Partido: {x[27]}")
             print("--------------------------------------------------------")
 
-#removendo valores repetidos:
-
-def remover_repet(lista):
-    l = []
-    for i in lista:
-        if i not in l:
-            l.append(i)
-    return l          
 
 def montar_lista(lista):
     lista_n=[]
     for i in lista:
-        lista_n.append(i.replace("\n",""))
+        lista_n.append(i)
     return lista_n
 
 
@@ -47,8 +38,8 @@ def localizar_cod (nome):
     SE_UE = arquivo.readlines()
     arquivo.close()
 
-    nome_cid = remover_repet(montar_lista(NM_UE))
-    cod_cid = remover_repet(montar_lista(SE_UE))
+    nome_cid = list(set(montar_lista(NM_UE)))
+    cod_cid = list(set(montar_lista(SE_UE)))
 
     if nome in nome_cid:
         i = nome_cid.index(nome)
